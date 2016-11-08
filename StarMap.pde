@@ -3,6 +3,7 @@ void setup ()
 {
   size(800, 800);
   loadData();
+  printStars();
 }
 
 ArrayList <Star> stars = new ArrayList <Star>();
@@ -20,5 +21,14 @@ void loadData()
   {
     Star e = new Star(row);
     stars.add(e);
+  }
+}
+
+void printStars()
+{
+  for (int i = 0; i < stars.size(); i++)
+  {
+    Star e = stars.get(i);
+    println(e);
   }
 }
