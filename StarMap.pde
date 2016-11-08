@@ -7,15 +7,23 @@ void setup ()
   printStars();
 }
 
+//global variables
 ArrayList <Star> stars = new ArrayList <Star>();
+boolean clickCheck = false;
 
 void draw()
 {
   background(0);
   drawGrid();
   drawStars();
+  
+  if (mousePressed == true)
+  {
+    selectStars();
+  }
 }
 
+//add a new table row every row to a new element in stars
 void loadData()
 {
   Table StarTable = loadTable("HabHYG15ly.csv", "header");
@@ -27,6 +35,7 @@ void loadData()
   }
 }
 
+//print star info via the toString method in Star
 void printStars()
 {
   for (int i = 0; i < stars.size(); i++)
@@ -36,7 +45,33 @@ void printStars()
   }
 }
 
+void selectStars()
+{
+  if (clickCheck == false)
+  {
+    for (int i = 0; i < stars.size(); i++)
+    {
+      Star e = stars.get(i);
+      
+      float x = map (e.Xg, -5, 5, 50, width-50);
+      float y = map (e.Yg, -5, 5, 50, height-50);
+      
+      //println(x+" "+y);
+      
+      if ((mouseX > x+e.AbsMag && mouseX < x-e.AbsMag) && (mouseY > y+e.AbsMag && mouseY < y+e.AbsMag))
+      {
+        clickCheck = true;
+        println("found");
+        break;
+      }
+     
+      //println("mX is "+mouseX);
+      //println("mY is "+mouseY);
+    }
+  }
+}
 
+//map x and y value and print star info
 void drawStars()
 {
   for (int i = 0; i < stars.size(); i++)
@@ -73,6 +108,7 @@ void drawGrid()
 
   stroke(255, 0, 255);
 
+  //loop through drawing a line every 70 pixels on the x axis
   while (y <= height-50)
   {
     while (x <= width-50)
@@ -90,7 +126,7 @@ void drawGrid()
         text(parsecs, x-18, y-10);
         parsecs++;
       }
-      
+     
       x += space;
     }
     x = 50;
@@ -98,11 +134,13 @@ void drawGrid()
     fline = true;
   }
   
+  //reset values
   fline = false;
   parsecs = -4;
   x = 50;
   y = 50;
 
+  //loop through drawing a line every 70 pixels on the y axis
   while (x <= width-50)
   {
     while (y <= height-50)

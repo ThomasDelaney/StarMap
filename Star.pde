@@ -8,6 +8,7 @@ class Star
   float Zg;
   float AbsMag;
   
+  //uses headers to get specified values
   Star(TableRow row)
   {
     this.Hab = row.getInt("Hab?");
